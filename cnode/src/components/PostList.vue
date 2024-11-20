@@ -5,7 +5,7 @@
             <img src="../assets/loading.gif">
         </div>
         <!-- 代表主题帖子列表 -->
-        <div class="posts">
+        <div class="posts" v-else>
             <ul>
                 <li>
                     <div class="toobar">
@@ -20,10 +20,9 @@
                 <li v-for="post in posts">
                      <!--头像-->
                     <img :src="post.author.avatar_url" alt="">
-                    <span>
+                    <span class="allcount">
                         <!--回复量/浏览量-->
-                        <span class="reply_count">{{ post.reply_count }}
-                            /{{ post.visit_count }}
+                        <span class="reply_count">{{ post.reply_count }}/{{ post.visit_count }}
                         </span> 
                     </span>
                     <!-- 帖子的分类 -->
@@ -34,9 +33,16 @@
                         </span>
                     </span>
                     <!--标题-->
+                    <router-link :to="{
+                        name:'post_content', // 路由名称
+                        params:{
+                            id:post.id
+                        }
+                    }">
                     <span>
                         {{ post.title }}
-                    </span> 
+                    </span>
+                    </router-link>
                      <!--最终回复时间-->
                     <span class="last_reply">
                         {{ post.last_reply_at | formatDate }}

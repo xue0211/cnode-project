@@ -2,25 +2,24 @@
   <div id="app">
     <Header></Header>
     <div class="main">
-      <PostList></PostList>
+      <router-view name="main"></router-view> <!--main 对应 index.js 中的 main-->
     </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header';
-import PostList from './components/PostList';
+  import Header from './components/Header';
+  import PostList from './components/PostList';
 export default {
   name: 'App',
   components: {
     Header, PostList
   }
 }
-</script
-    PostList>
+</script>
 
 <style>
-.main{
+.main {
   width: 80%;
   margin: 0 auto;
 }
