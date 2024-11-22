@@ -2,6 +2,7 @@
   <div id="app">
     <Header></Header>
     <div class="main">
+      <router-view name="slidebar"></router-view> <!--slidebar 对应 index.js 中的 slidebar-->
       <router-view name="main"></router-view> <!--main 对应 index.js 中的 main-->
     </div>
   </div>

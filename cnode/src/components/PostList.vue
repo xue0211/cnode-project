@@ -36,7 +36,8 @@
                     <router-link :to="{
                         name:'post_content', // 路由名称
                         params:{
-                            id:post.id
+                            id:post.id,
+                            name: post.author.loginname
                         }
                     }">
                     <span>

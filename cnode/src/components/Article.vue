@@ -17,14 +17,24 @@
                 </ul>
                 <div v-html="post.content" class="topic_content"></div>
             </div>
-            <div>
+            <div id="reply">
                 <div class="topbar">回复</div>
                 <div v-for="(reply, index) in post.replies" class="replySec">
                     <div class="replyUp">
-                        <router-link>
+                        <router-link :to="{
+                            name: 'user_info',
+                            params: {
+                                name: reply.author.loginname
+                            }
+                        }">
                             <img :src="reply.author.avatar_url" alt=""> <!--头像-->
                         </router-link>
-                        <router-link>
+                        <router-link :to="{
+                            name: 'user_info',
+                            params: {
+                                name: reply.author.loginname
+                            }
+                        }">
                             <span>{{ reply.author.loginname }}</span> <!--用户名-->
                         </router-link>
                         <span>
@@ -35,8 +45,8 @@
                         </span>
                         <span v-else>
                         </span>
-                        <p v-html="reply.content"></p>
                     </div>
+                    <p v-html="reply.content"></p>
                 </div>
             </div>
         </div>
@@ -66,13 +76,101 @@ export default {
                 })
         }
     },
-    beforeMount() {
-        this.isLoading = true
-        this.getArticleData()
-    }
+        beforeMount() {
+           this.isLoading = true
+           this.getArticleData()
+    },
+    // 监测路由变化
+    watch:{
+          '$route'(to,from){
+            this.getArticleData()
+          }
+      }
 }
 </script>
 
 <style>
 @import url('../assets/markdown-github.css');
+
+.topbar {
+    padding: 10px;
+    background-color: #f6f6f6;
+    height: 16px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.article:not(:first-child) {
+    margin-right: 340px;
+    margin-top: 15px;
+}
+
+#reply,
+.topic_header {
+    background-color: #fff;
+}
+
+#reply {
+    margin-top: 15px;
+}
+
+#reply img {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    bottom: -9px;
+}
+
+#reply a,
+#reply span {
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+}
+
+.replySec {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0 10px;
+}
+
+.loading {
+    text-align: center;
+    padding-top: 300px;
+}
+
+.replyUp a:nth-of-type(2) {
+    margin-left: 0px;
+    display: inline-block;
+}
+
+.topic_header {
+    padding: 10px;
+}
+
+.topic_title {
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+.topic_header ul {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0;
+}
+
+.topic_header li {
+    display: inline-block;
+    font-size: 12px;
+    color: #838383
+}
+
+.topic_content {
+    border-top: 1px solid #e5e5e5;
+    padding: 0 10px;
+}
+
+.markdown-text img {
+    width: 92% !important;
+}
 </style>
